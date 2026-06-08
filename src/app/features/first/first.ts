@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { FirstService } from './first.service';
-import { AuthService } from '../../core/auth.service';
 
 interface DashboardPage {
   id: number;
@@ -17,7 +16,6 @@ interface DashboardPage {
 })
 export class First {
   private readonly firstService = inject(FirstService);
-  private readonly authService = inject(AuthService);
 
   readonly pages: DashboardPage[] = [
     {
@@ -94,9 +92,5 @@ export class First {
 
   getAll(): void {
     this.firstService.getAll().subscribe(console.log);
-  }
-
-  logout(): void {
-    this.authService.logout();
   }
 }

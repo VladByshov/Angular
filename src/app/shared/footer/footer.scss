@@ -1,0 +1,41 @@
+.footer {
+  padding: 22px 28px;
+  background: #f3ded4;
+  border-top: 1px solid #e7cfc3;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #dcbfb0;
+}
+
+.footer-brand {
+  font-weight: 600;
+  color: #3f2e25;
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+
+  a {
+    text-decoration: none;
+    color: #3f2e25;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.copyright {
+  margin: 12px 0 0;
+  text-align: center;
+  color: #5f4638;
+  font-size: 13px;
+}
+

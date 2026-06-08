@@ -1,0 +1,14 @@
+@if (isLoggedIn) {
+  <header class="header">
+    <div class="brand">ArtistsHub</div>
+    <div class="header-actions">
+      <nav class="top-nav">
+        <a routerLink="/first">Home</a>
+        <a href="#">Artists</a>
+        <a href="#">Events</a>
+        <a href="#">Reviews</a>
+      </nav>
+      <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </header>
+}
