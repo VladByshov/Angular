@@ -1,0 +1,34 @@
+<section class="auth-page">
+  <form class="auth-card" [formGroup]="signInForm" (ngSubmit)="submit()">
+    <h1>Welcome back</h1>
+    <p class="subtitle">Sign in to continue.</p>
+
+    <label for="login">Login</label>
+    <input id="login" type="text" formControlName="login" placeholder="Enter login" />
+    @if (signInForm.controls.login.touched && signInForm.controls.login.hasError('required')) {
+      <p class="field-error">Login is required</p>
+    }
+
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" placeholder="Enter password" />
+    @if (signInForm.controls.password.touched && signInForm.controls.password.hasError('required')) {
+      <p class="field-error">Password is required</p>
+    }
+    @if (signInForm.controls.password.touched && signInForm.controls.password.hasError('minlength')) {
+      <p class="field-error">Password must be at least 6 characters</p>
+    }
+
+    @if (errorMessage) {
+      <p class="submit-error">{{ errorMessage }}</p>
+    }
+
+    <button type="submit" [disabled]="signInForm.invalid || isLoading">
+      {{ isLoading ? 'Signing in...' : 'Sign in' }}
+    </button>
+
+    <p class="switch-link">
+      No account yet?
+      <a routerLink="/sign-up">Create one</a>
+    </p>
+  </form>
+</section>
