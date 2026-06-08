@@ -1,0 +1,23 @@
+<section class="auth-layout">
+  <div class="auth-layout__backdrop"></div>
+
+  <article class="auth-layout__card">
+    <aside class="auth-layout__intro">
+      <p class="auth-layout__brand">Angular JWT Space</p>
+      <h1>{{ title }}</h1>
+      <p>{{ subtitle }}</p>
+    </aside>
+
+    <div class="auth-layout__form-slot">
+      <ng-content></ng-content>
+
+      @if (alternateText && alternateLinkText) {
+        <p class="auth-layout__switch">
+          {{ alternateText }}
+          <a [routerLink]="alternateLink">{{ alternateLinkText }}</a>
+        </p>
+      }
+    </div>
+  </article>
+</section>
+

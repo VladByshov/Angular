@@ -1,2 +1,60 @@
-<p>first works!</p>
-<button (click)="getAll()">Get all</button>
+<div class="shell">
+  <header class="header">
+	<div class="brand">ArtistsHub</div>
+	<div class="header-actions">
+	  <nav class="top-nav">
+		<a href="#">Home</a>
+		<a href="#">Artists</a>
+		<a href="#">Events</a>
+		<a href="#">Reviews</a>
+	  </nav>
+	  <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+	</div>
+  </header>
+
+  <main class="main">
+	<aside class="aside">
+	  <h3>Sections</h3>
+	  <div class="menu">
+		@for (page of pages; track page.id) {
+		  <button
+			type="button"
+			class="menu-item"
+			[class.active]="page.id === selectedPageId"
+			(click)="selectPage(page.id)">
+			{{ page.id }}. {{ page.title }}
+		  </button>
+		}
+	  </div>
+	</aside>
+
+	<section class="content">
+	  <div class="content-head">
+		<p class="eyebrow">Page {{ selectedPage.id }}</p>
+		<h1>{{ selectedPage.title }}</h1>
+		<p>{{ selectedPage.subtitle }}</p>
+	  </div>
+
+	  <div class="content-lines">
+		@for (line of selectedPage.lines; track line) {
+		  <article class="line-card">
+			{{ line }}
+		  </article>
+		}
+	  </div>
+
+	  <button class="api-btn" type="button" (click)="getAll()">Load API sample</button>
+	</section>
+  </main>
+
+  <footer class="footer">
+	<div class="footer-row">
+	  <span class="footer-brand">Relax Map</span>
+	  <div class="footer-links">
+		<a href="#">Головна</a>
+		<a href="#">Місця відпочинку</a>
+	  </div>
+	</div>
+	<p class="copyright">© 2026 Природні Мандри. Усі права захищені.</p>
+  </footer>
+</div>

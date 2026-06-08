@@ -1,8 +1,10 @@
-<section class="auth-page">
-  <form class="auth-card" [formGroup]="signInForm" (ngSubmit)="submit()">
-    <h1>Welcome back</h1>
-    <p class="subtitle">Sign in to continue.</p>
-
+<app-auth-layout
+  title="Welcome back"
+  subtitle="Sign in to continue and access your workspace."
+  alternateText="No account yet?"
+  alternateLinkText="Create one"
+  alternateLink="/sign-up">
+  <form class="auth-form" [formGroup]="signInForm" (ngSubmit)="submit()">
     <label for="login">Login</label>
     <input id="login" type="text" formControlName="login" placeholder="Enter login" />
     @if (signInForm.controls.login.touched && signInForm.controls.login.hasError('required')) {
@@ -25,10 +27,5 @@
     <button type="submit" [disabled]="signInForm.invalid || isLoading">
       {{ isLoading ? 'Signing in...' : 'Sign in' }}
     </button>
-
-    <p class="switch-link">
-      No account yet?
-      <a routerLink="/sign-up">Create one</a>
-    </p>
   </form>
-</section>
+</app-auth-layout>

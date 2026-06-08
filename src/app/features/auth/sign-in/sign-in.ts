@@ -1,18 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
 import { SignIn } from '../../../core/interfaces/sign-in';
+import { AuthLayoutComponent } from '../../../shared/auth-layout/auth-layout';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, AuthLayoutComponent],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.scss',
 })
 export class SignInComponent {
   private readonly signInService = inject(SignInService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   isLoading = false;
   errorMessage = '';
@@ -38,7 +40,8 @@ export class SignInComponent {
     this.signInService.signIn(credentials).subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/first']);
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/first';
+        this.router.navigateByUrl(returnUrl);
       },
       error: (error) => {
         this.isLoading = false;

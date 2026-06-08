@@ -1,30 +1,6 @@
-.auth-page {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  background: linear-gradient(145deg, #0f172a 0%, #1d4ed8 100%);
-}
-
-.auth-card {
-  width: min(440px, 100%);
+.auth-form {
   display: grid;
   gap: 10px;
-  padding: 28px;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.25);
-}
-
-h1 {
-  margin: 0;
-  font-size: 28px;
-  color: #0f172a;
-}
-
-.subtitle {
-  margin: 0 0 8px;
-  color: #475569;
 }
 
 label {
@@ -76,20 +52,5 @@ button:disabled {
 
 .submit-success {
   color: #15803d;
-}
-
-.switch-link {
-  margin: 2px 0 0;
-  color: #334155;
-}
-
-a {
-  color: #2563eb;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 

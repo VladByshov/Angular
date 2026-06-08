@@ -1,8 +1,10 @@
-<section class="auth-page">
-  <form class="auth-card" [formGroup]="signUpForm" (ngSubmit)="submit()">
-    <h1>Create account</h1>
-    <p class="subtitle">Register to access protected API endpoints.</p>
-
+<app-auth-layout
+  title="Create account"
+  subtitle="Register to access protected API endpoints."
+  alternateText="Already have an account?"
+  alternateLinkText="Sign in"
+  alternateLink="/sign-in">
+  <form class="auth-form" [formGroup]="signUpForm" (ngSubmit)="submit()">
     <label for="login">Login</label>
     <input id="login" type="text" formControlName="login" placeholder="Choose login" />
     @if (signUpForm.controls.login.touched && signUpForm.controls.login.hasError('required')) {
@@ -40,10 +42,5 @@
     <button type="submit" [disabled]="signUpForm.invalid || isLoading">
       {{ isLoading ? 'Creating account...' : 'Sign up' }}
     </button>
-
-    <p class="switch-link">
-      Already have an account?
-      <a routerLink="/sign-in">Sign in</a>
-    </p>
   </form>
-</section>
+</app-auth-layout>
