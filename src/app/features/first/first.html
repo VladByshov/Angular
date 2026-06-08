@@ -1,2 +1,5 @@
 <p>first works!</p>
-<button (click)="getAll()">Get all</button>
+<div class="action-row">
+  <button type="button" (click)="getAll()">Get all</button>
+  <span class="timer">{{ remainingSeconds }}s</span>
+</div>

@@ -37,17 +37,18 @@ export class AuthService {
 
     if (!refreshToken) {
       this.logout();
-      return throwError(() => new Error('No refresh token available'));
     }
 
     return this.http.post<AuthResponse>(`${this.accountUrl}/Refresh`, { refreshToken }).pipe(
       tap((response) => {
-        this.tokenService.setTokens(response.accessToken, response.refreshToken);
+        this.tokenService.setAccess(response.accessToken);
       }),
       catchError((error) => {
-        this.logout();
+        if (error.status === 401){
+          this.logout();
+        }
         return throwError(() => error);
-      })
+      }),
     );
   }
 
