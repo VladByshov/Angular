@@ -82,7 +82,7 @@ export class First {
 
   selectedPageId = this.pages[0].id;
 
-  get selectedPage(): DashboardPage {
+    get selectedPage(): DashboardPage {
     return this.pages.find((page) => page.id === this.selectedPageId) ?? this.pages[0];
   }
 

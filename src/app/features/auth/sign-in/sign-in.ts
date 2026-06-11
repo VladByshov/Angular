@@ -2,16 +2,16 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
-import { SignIn } from '../../../core/interfaces/sign-in';
-import { AuthLayoutComponent } from '../../../shared/auth-layout/auth-layout';
+import { SignInRequest } from '../../../core/interfaces/sign-in';
+import { AuthLayout } from '../../../layout/auth-layout/auth-layout';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [ReactiveFormsModule, AuthLayoutComponent],
+  imports: [ReactiveFormsModule, AuthLayout],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.scss',
 })
-export class SignInComponent {
+export class SignIn {
   private readonly signInService = inject(SignInService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -35,7 +35,7 @@ export class SignInComponent {
 
     this.isLoading = true;
     this.errorMessage = '';
-    const credentials = this.signInForm.getRawValue() as SignIn;
+    const credentials = this.signInForm.getRawValue() as SignInRequest;
 
     this.signInService.signIn(credentials).subscribe({
       next: () => {

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../../core/auth.service';
-import { SignIn } from '../../../core/interfaces/sign-in';
+import { AuthService } from '../../../core/services/auth.service';
+import { SignInRequest } from '../../../core/interfaces/sign-in';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { SignIn } from '../../../core/interfaces/sign-in';
 export class SignInService {
   private readonly authService = inject(AuthService);
 
-  signIn(credentials: SignIn): Observable<{ accessToken: string; refreshToken: string }> {
+  signIn(credentials: SignInRequest): Observable<{ accessToken: string; refreshToken: string }> {
     return this.authService.signIn(credentials);
   }
 }

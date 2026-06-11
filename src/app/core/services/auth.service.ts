@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { TokenService } from './token.service';
 import { Router } from '@angular/router';
-import {environment} from '../../environments/environment';
-import { SignIn } from './interfaces/sign-in';
+import { environment } from '../../../environments/environment';
+import { SignInRequest } from '../interfaces/sign-in';
 
 interface AuthResponse {
   accessToken: string;
@@ -16,15 +16,15 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private http = inject(HttpClient);
-  private tokenService = inject(TokenService);
-  private router = inject(Router);
-  private accountUrl = `${environment.apiUrl}/Account`;
+  private readonly http = inject(HttpClient);
+  private readonly tokenService = inject(TokenService);
+  private readonly router = inject(Router);
+  private readonly accountUrl = `${environment.apiUrl}/Account`;
 
   public isRefreshing$ = new BehaviorSubject<boolean>(false);
   public refreshTokenSubject$ = new BehaviorSubject<string | null>(null);
 
-  signIn(credentials: SignIn): Observable<AuthResponse> {
+  signIn(credentials: SignInRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.accountUrl}/Login`, credentials).pipe(
       tap((response) => {
         this.tokenService.setTokens(response.accessToken, response.refreshToken);
@@ -37,6 +37,7 @@ export class AuthService {
 
     if (!refreshToken) {
       this.logout();
+      return throwError(() => new Error('No refresh token available'));
     }
 
     return this.http.post<AuthResponse>(`${this.accountUrl}/Refresh`, { refreshToken }).pipe(
@@ -44,11 +45,11 @@ export class AuthService {
         this.tokenService.setAccess(response.accessToken);
       }),
       catchError((error) => {
-        if (error.status === 401){
+        if (error.status === 401) {
           this.logout();
         }
         return throwError(() => error);
-      }),
+      })
     );
   }
 
