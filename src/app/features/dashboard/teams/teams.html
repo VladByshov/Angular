@@ -1,0 +1,50 @@
+<div class="table-container">
+  <h2>Teams</h2>
+
+  @if (isLoading) {
+    <div class="loading">
+      <p>Loading...</p>
+    </div>
+  } @else if (error) {
+    <div class="error-message">
+      <p>{{ error }}</p>
+    </div>
+  } @else if (teams.length === 0) {
+    <div class="no-data">
+      <p>No teams found</p>
+    </div>
+  } @else {
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>League ID</th>
+            <th>Position</th>
+            <th>Score</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Draws</th>
+            <th>Games</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (team of teams; track team.id) {
+            <tr>
+              <td>{{ team.id }}</td>
+              <td class="name">{{ team.name }}</td>
+              <td>{{ team.leagueId }}</td>
+              <td class="position">#{{ team.position }}</td>
+              <td class="score">{{ team.score }}</td>
+              <td class="wins">{{ team.wins }}W</td>
+              <td class="losses">{{ team.losses }}L</td>
+              <td class="draws">{{ team.draws }}D</td>
+              <td>{{ team.games }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

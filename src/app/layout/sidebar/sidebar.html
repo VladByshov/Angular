@@ -1,1 +1,18 @@
-<p>sidebar works!</p>
+<aside class="sidebar">
+  <nav class="sidebar-nav">
+    <h3 class="sidebar-title">Content</h3>
+    <ul class="menu-list">
+      @for (item of menuItems; track item.id) {
+        <li>
+          <a
+            class="menu-link"
+            [routerLink]="item.route"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: false }">
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</aside>

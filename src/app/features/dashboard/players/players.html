@@ -1,0 +1,102 @@
+<div class="table-container">
+  <div class="table-header">
+    <div>
+      <h2>Players</h2>
+      <p class="table-subtitle">Server-side pagination and filtering for the `Player/All` endpoint.</p>
+    </div>
+
+    <div class="players-toolbar">
+      <label class="toolbar-field">
+        <span>Page size</span>
+        <select [value]="pageSize" (change)="updatePageSize($any($event.target).value)">
+          @for (size of pageSizeOptions; track size) {
+            <option [value]="size">{{ size }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="toolbar-field">
+        <span>Sort type</span>
+        <input
+          type="number"
+          min="0"
+          placeholder="e.g. 0 / 1"
+          [value]="sortType ?? ''"
+          (input)="updateSortType($any($event.target).value)" />
+      </label>
+
+      <label class="toolbar-field">
+        <span>Sort by player</span>
+        <input
+          type="number"
+          min="0"
+          placeholder="enum value"
+          [value]="sortByPlayer ?? ''"
+          (input)="updateSortByPlayer($any($event.target).value)" />
+      </label>
+
+      <div class="toolbar-actions">
+        <button type="button" class="primary-btn" (click)="applyFilters()" [disabled]="isLoading">
+          Apply
+        </button>
+        <button type="button" class="secondary-btn" (click)="resetFilters()" [disabled]="isLoading">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">
+      <p>Loading...</p>
+    </div>
+  } @else if (error) {
+    <div class="error-message">
+      <p>{{ error }}</p>
+    </div>
+  } @else if (players.length === 0) {
+    <div class="no-data">
+      <p>No players found</p>
+    </div>
+  } @else {
+    <div class="table-meta">
+      <span>Total: {{ totalCount }}</span>
+      <span>Page {{ page }} of {{ totalPages }}</span>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Number</th>
+            <th>Team ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (player of players; track player.id) {
+            <tr>
+              <td>{{ player.id }}</td>
+              <td>{{ player.name }}</td>
+              <td>{{ player.surname }}</td>
+              <td class="number">{{ player.number }}</td>
+              <td>{{ player.teamId }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button type="button" class="secondary-btn" (click)="goToPreviousPage()" [disabled]="page === 1 || isLoading">
+        Previous
+      </button>
+      <span class="pagination__state">{{ page }} / {{ totalPages }}</span>
+      <button type="button" class="secondary-btn" (click)="goToNextPage()" [disabled]="page >= totalPages || isLoading">
+        Next
+      </button>
+    </div>
+  }
+</div>

@@ -40,7 +40,7 @@ export class SignIn {
     this.signInService.signIn(credentials).subscribe({
       next: () => {
         this.isLoading = false;
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/first';
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/dashboard';
         this.router.navigateByUrl(returnUrl);
       },
       error: (error) => {
