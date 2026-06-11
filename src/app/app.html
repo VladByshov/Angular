@@ -1,8 +1,12 @@
 <div class="app-shell">
-  <app-header />
+  @if (isLoggedIn()) {
+    <app-header />
+  }
   <app-custom-toast-container />
   <main class="app-main">
     <router-outlet />
   </main>
-  <app-footer />
+  @if (isLoggedIn()) {
+    <app-footer />
+  }
 </div>

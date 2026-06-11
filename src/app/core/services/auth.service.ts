@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
@@ -23,11 +23,13 @@ export class AuthService {
 
   public isRefreshing$ = new BehaviorSubject<boolean>(false);
   public refreshTokenSubject$ = new BehaviorSubject<string | null>(null);
+  readonly isLoggedIn = signal(!!this.tokenService.getAccessToken());
 
   signIn(credentials: SignInRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.accountUrl}/Login`, credentials).pipe(
       tap((response) => {
         this.tokenService.setTokens(response.accessToken, response.refreshToken);
+        this.isLoggedIn.set(true);
       })
     );
   }
@@ -55,6 +57,7 @@ export class AuthService {
 
   logout(): void {
     this.tokenService.clearTokens();
+    this.isLoggedIn.set(false);
     this.isRefreshing$.next(false);
     this.refreshTokenSubject$.next(null);
     this.router.navigate(['/sign-in']);
